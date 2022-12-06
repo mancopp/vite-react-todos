@@ -32,6 +32,7 @@ main {
 
   position: sticky;
   top: 0px;
+  z-index: 999;
 }
 
 .todosContainer {
@@ -85,11 +86,12 @@ main {
 .addTodoContainer > input {
   color: white;
   background-color: rgba(0, 0, 0, 0.172);
+  min-height: 2rem;
   flex: auto;
 }
 
 .addTodoContainer > * {
-  margin: 0.5rem;
+  margin: 1rem;
 }
 
 @keyframes rollout {

@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Todo from "./Todo";
 
 const Todos = () => {
   const [todos, setTodos] = useState([]);
+  const inputRef = useRef(null);
 
   useEffect(() => {
     const data = JSON.parse(window.localStorage.getItem("TODOS_STATE"));
     console.log(data);
-    if (data.length > 0) setTodos(data);
+    if (data && data.length > 0) setTodos(data);
   }, []);
 
   useEffect(() => {
@@ -22,15 +23,19 @@ const Todos = () => {
     setTodos(_todos);
   };
 
+  const addTodo = () => {
+    const newTodo = {
+      isDone: false,
+      content: inputRef.current.value,
+      id: todos.length > 0 ? todos[todos.length - 1].id + 1 : 1,
+    };
+    setTodos([...todos, newTodo]);
+    inputRef.current.value = null;
+  };
+
   const handleInputKeyDown = (event) => {
     if (event.key === "Enter" && event.target.value) {
-      const newTodo = {
-        isDone: false,
-        content: event.target.value,
-        id: todos.length > 0 ? todos[todos.length - 1].id + 1 : 1,
-      };
-      setTodos([...todos, newTodo]);
-      event.target.value = null;
+      addTodo();
     }
   };
 
@@ -39,7 +44,7 @@ const Todos = () => {
       <div className="titleContainer">TODOS</div>
       <div className="todosContainer">
         {todos
-          .sort((a, b) => Number(a.isDone) - Number(b.isDone))
+          // .sort((a, b) => Number(a.isDone) - Number(b.isDone))
           .map((todo) => (
             <Todo
               isDone={todo.isDone}
@@ -51,8 +56,8 @@ const Todos = () => {
           ))}
       </div>
       <div className="addTodoContainer">
-        <button></button>
-        <input type="text" onKeyDown={handleInputKeyDown} />
+        <button type="button" onClick={addTodo}></button>
+        <input type="text" onKeyDown={handleInputKeyDown} ref={inputRef} />
       </div>
     </>
   );
