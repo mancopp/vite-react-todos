@@ -1,11 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Todo from "./Todo";
 
 const Todos = () => {
-  const [todos, setTodos] = useState([
-    { isDone: false, content: "I like dogs", id: 1 },
-    { isDone: true, content: "I like cats", id: 2 },
-  ]);
+  const [todos, setTodos] = useState([]);
+
+  useEffect(() => {
+    const data = JSON.parse(window.localStorage.getItem("TODOS_STATE"));
+    console.log(data);
+    if (data.length > 0) setTodos(data);
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem("TODOS_STATE", JSON.stringify(todos));
+  }, [todos]);
 
   const toggleIsComplete = (id) => {
     console.log(id);
@@ -16,7 +23,7 @@ const Todos = () => {
   };
 
   const handleInputKeyDown = (event) => {
-    if (event.key === "Enter") {
+    if (event.key === "Enter" && event.target.value) {
       const newTodo = {
         isDone: false,
         content: event.target.value,
