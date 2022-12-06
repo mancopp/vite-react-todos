@@ -2,7 +2,7 @@ import React from "react";
 
 function Todo(props) {
   return (
-    <div className="todo">
+    <div className={`todo todo-isDone-${props.isDone}`}>
       <input
         type="checkbox"
         defaultChecked={props.isDone}

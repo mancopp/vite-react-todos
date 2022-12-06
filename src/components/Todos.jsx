@@ -38,15 +38,17 @@ const Todos = () => {
     <>
       <div className="titleContainer">TODOS</div>
       <div className="todosContainer">
-        {todos.map((todo) => (
-          <Todo
-            isDone={todo.isDone}
-            content={todo.content}
-            id={todo.id}
-            key={todo.id}
-            toggleIsComplete={toggleIsComplete}
-          />
-        ))}
+        {todos
+          .sort((a, b) => Number(a.isDone) - Number(b.isDone))
+          .map((todo) => (
+            <Todo
+              isDone={todo.isDone}
+              content={todo.content}
+              id={todo.id}
+              key={todo.id}
+              toggleIsComplete={toggleIsComplete}
+            />
+          ))}
       </div>
       <div className="addTodoContainer">
         <button></button>
