@@ -20,7 +20,7 @@ main {
 }
 
 .titleContainer {
-  background-color: rgba(0, 0, 0, 0.178);
+  background-color: rgb(55, 91, 164);
   min-height: 5rem;
   display: flex;
   align-items: center;
@@ -29,6 +29,9 @@ main {
   color: white;
   font-weight: 900;
   font-size: 30px;
+
+  position: sticky;
+  top: 0px;
 }
 
 .todosContainer {
@@ -87,4 +90,17 @@ main {
 
 .addTodoContainer > * {
   margin: 0.5rem;
+}
+
+@keyframes rollout {
+  0% {
+    transform: translateY(-100px);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+.roll-out {
+  animation: rollout 0.4s;
 }
